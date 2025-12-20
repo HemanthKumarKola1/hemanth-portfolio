@@ -134,6 +134,14 @@ func copyAssets() {
 		os.WriteFile("dist/images/profile.jpeg", data, 0644)
 	}
 
+	// Copy award images
+	if data, err := os.ReadFile("GEN_AI.jpeg"); err == nil {
+		os.WriteFile("dist/images/gen-ai-award.jpeg", data, 0644)
+	}
+	if data, err := os.ReadFile("OTEL_SPOT.jpeg"); err == nil {
+		os.WriteFile("dist/images/otel-spot-award.jpeg", data, 0644)
+	}
+
 	css := `
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; }
@@ -157,6 +165,12 @@ header { background: #2c3e50; color: white; padding: 2rem 0; }
 .social-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1rem; }
 .social-links a { color: white; text-decoration: none; padding: 0.5rem 1rem; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; transition: background 0.3s; }
 .social-links a:hover { background: rgba(255,255,255,0.1); }
+.awards { background: #f8f9fa; padding: 3rem 0; }
+.toggle-btn { background: #3498db; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 4px; cursor: pointer; margin-top: 1rem; }
+.toggle-btn:hover { background: #2980b9; }
+.awards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
+.award-card { background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center; }
+.award-img { width: 100%; max-width: 400px; height: auto; border-radius: 4px; }
 footer { background: #2c3e50; color: white; text-align: center; padding: 2rem 0; margin-top: 3rem; }
 @media (max-width: 768px) { .hero { flex-direction: column; text-align: center; } .hero h1 { font-size: 2rem; } .skills-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); } }
 `
@@ -198,6 +212,21 @@ const indexTemplate = `<!DOCTYPE html>
         </div>
     </section>
 
+    <section class="awards">
+        <div class="container">
+            <h2>Awards & Recognition</h2>
+            <button class="toggle-btn" onclick="toggleAwards()">Show Awards</button>
+            <div class="awards-grid" id="awards-grid" style="display: none;">
+                <div class="award-card">
+                    <img src="images/gen-ai-award.jpeg" alt="Gen AI Award" class="award-img">
+                </div>
+                <div class="award-card">
+                    <img src="images/otel-spot-award.jpeg" alt="OpenTelemetry Spot Award" class="award-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="articles">
         <div class="container">
             <h2>Latest Articles</h2>
@@ -224,6 +253,20 @@ const indexTemplate = `<!DOCTYPE html>
             <p>&copy; 2024 Hemanth Kumar Kola. Built with Go.</p>
         </div>
     </footer>
+
+    <script>
+    function toggleAwards() {
+        const grid = document.getElementById('awards-grid');
+        const btn = document.querySelector('.toggle-btn');
+        if (grid.style.display === 'none') {
+            grid.style.display = 'grid';
+            btn.textContent = 'Hide Awards';
+        } else {
+            grid.style.display = 'none';
+            btn.textContent = 'Show Awards';
+        }
+    }
+    </script>
 </body>
 </html>`
 

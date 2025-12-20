@@ -89,6 +89,21 @@
         </div>
     </section>
 
+    <section class="awards">
+        <div class="container">
+            <h2>Awards & Recognition</h2>
+            <button class="toggle-btn" onclick="toggleAwards()">Show Awards</button>
+            <div class="awards-grid" id="awards-grid" style="display: none;">
+                <div class="award-card">
+                    <img src="images/gen-ai-award.jpeg" alt="Gen AI Award" class="award-img">
+                </div>
+                <div class="award-card">
+                    <img src="images/otel-spot-award.jpeg" alt="OpenTelemetry Spot Award" class="award-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="articles">
         <div class="container">
             <h2>Latest Articles</h2>
@@ -126,5 +141,19 @@
             <p>&copy; 2024 Hemanth Kumar Kola. Built with Go.</p>
         </div>
     </footer>
+
+    <script>
+    function toggleAwards() {
+        const grid = document.getElementById('awards-grid');
+        const btn = document.querySelector('.toggle-btn');
+        if (grid.style.display === 'none') {
+            grid.style.display = 'grid';
+            btn.textContent = 'Hide Awards';
+        } else {
+            grid.style.display = 'none';
+            btn.textContent = 'Show Awards';
+        }
+    }
+    </script>
 </body>
 </html>
