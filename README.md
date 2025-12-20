@@ -12,12 +12,13 @@ A static site generator built in Go for showcasing your skills and technical art
 ## Quick Start
 
 1. **Build the site:**
+
    ```bash
    ./build.sh
    ```
 
 2. **Preview locally:**
-   Open `dist/index.html` in your browser
+   Open `docs/index.html` in your browser
 
 ## Adding Articles
 
@@ -27,20 +28,23 @@ A static site generator built in Go for showcasing your skills and technical art
 ## Deployment Options
 
 ### GitHub Pages (Free)
+
 1. Push to GitHub repository
 2. Enable GitHub Pages in repository settings
-3. Upload `dist/` contents
+3. Upload `docs/` contents
 
 ### Netlify (Free)
+
 1. Connect your GitHub repository
 2. Set build command: `go run main.go`
-3. Set publish directory: `dist`
+3. Set publish directory: `docs`
 
 ### Vercel (Free)
+
 1. Import your GitHub repository
 2. Framework preset: Other
 3. Build command: `go run main.go`
-4. Output directory: `dist`
+4. Output directory: `docs`
 
 ## Customization
 
@@ -54,7 +58,7 @@ A static site generator built in Go for showcasing your skills and technical art
 portfolio/
 ├── main.go           # Site generator
 ├── content/          # Markdown articles
-├── dist/            # Generated site
+├── docs/            # Generated site
 ├── build.sh         # Build script
 └── go.mod           # Go dependencies
 ```

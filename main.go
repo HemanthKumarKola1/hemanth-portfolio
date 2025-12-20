@@ -34,15 +34,15 @@ type PageData struct {
 
 func main() {
 	// Create output directory
-	os.MkdirAll("dist", 0755)
-	os.MkdirAll("dist/articles", 0755)
+	os.MkdirAll("docs", 0755)
+	os.MkdirAll("docs/articles", 0755)
 
 	// Generate site
 	generateHomePage()
 	generateArticles()
 	copyAssets()
 
-	fmt.Println("Portfolio site generated in 'dist' directory!")
+	fmt.Println("Portfolio site generated in 'docs' directory!")
 }
 
 func generateHomePage() {
@@ -69,7 +69,7 @@ func generateHomePage() {
 	}
 
 	tmpl := template.Must(template.New("index").Parse(indexTemplate))
-	file, _ := os.Create("dist/index.html")
+	file, _ := os.Create("docs/index.html")
 	defer file.Close()
 	tmpl.Execute(file, data)
 }
@@ -79,7 +79,7 @@ func generateArticles() {
 	tmpl := template.Must(template.New("article").Parse(articleTemplate))
 
 	for _, article := range articles {
-		file, _ := os.Create(fmt.Sprintf("dist/articles/%s.html", article.Slug))
+		file, _ := os.Create(fmt.Sprintf("docs/articles/%s.html", article.Slug))
 		tmpl.Execute(file, article)
 		file.Close()
 	}
@@ -129,17 +129,17 @@ func extractSummary(content string) string {
 
 func copyAssets() {
 	// Copy profile image
-	os.MkdirAll("dist/images", 0755)
+	os.MkdirAll("docs/images", 0755)
 	if data, err := os.ReadFile("Hemanth-Mongo.jpeg"); err == nil {
-		os.WriteFile("dist/images/profile.jpeg", data, 0644)
+		os.WriteFile("docs/images/profile.jpeg", data, 0644)
 	}
 
 	// Copy award images
 	if data, err := os.ReadFile("GEN_AI.jpeg"); err == nil {
-		os.WriteFile("dist/images/gen-ai-award.jpeg", data, 0644)
+		os.WriteFile("docs/images/gen-ai-award.jpeg", data, 0644)
 	}
 	if data, err := os.ReadFile("OTEL_SPOT.jpeg"); err == nil {
-		os.WriteFile("dist/images/otel-spot-award.jpeg", data, 0644)
+		os.WriteFile("docs/images/otel-spot-award.jpeg", data, 0644)
 	}
 
 	css := `
@@ -174,7 +174,7 @@ header { background: #2c3e50; color: white; padding: 2rem 0; }
 footer { background: #2c3e50; color: white; text-align: center; padding: 2rem 0; margin-top: 3rem; }
 @media (max-width: 768px) { .hero { flex-direction: column; text-align: center; } .hero h1 { font-size: 2rem; } .skills-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); } }
 `
-	os.WriteFile("dist/style.css", []byte(css), 0644)
+	os.WriteFile("docs/style.css", []byte(css), 0644)
 }
 
 const indexTemplate = `<!DOCTYPE html>
