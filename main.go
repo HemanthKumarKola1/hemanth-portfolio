@@ -20,10 +20,16 @@ type Article struct {
 	Summary string
 }
 
+type SocialLink struct {
+	Name string
+	URL  string
+}
+
 type PageData struct {
-	Title    string
-	Articles []Article
-	Skills   []string
+	Title       string
+	Articles    []Article
+	Skills      []string
+	SocialLinks []SocialLink
 }
 
 func main() {
@@ -49,10 +55,17 @@ func generateHomePage() {
 
 	articles := getArticles()
 
+	socialLinks := []SocialLink{
+		{Name: "GitHub", URL: "https://github.com/HemanthKumarKola1"},
+		{Name: "LeetCode", URL: "https://leetcode.com/u/Go_hemanth"},
+		{Name: "LinkedIn", URL: "https://www.linkedin.com/in/hemanth-kumar-kola-03415b193"},
+	}
+
 	data := PageData{
-		Title:    "Hemanth Kola",
-		Articles: articles,
-		Skills:   skills,
+		Title:       "Hemanth Kola",
+		Articles:    articles,
+		Skills:      skills,
+		SocialLinks: socialLinks,
 	}
 
 	tmpl := template.Must(template.New("index").Parse(indexTemplate))
@@ -141,6 +154,9 @@ header { background: #2c3e50; color: white; padding: 2rem 0; }
 .article-card .date { color: #666; font-size: 0.9rem; margin-bottom: 1rem; }
 .btn { display: inline-block; background: #3498db; color: white; padding: 0.5rem 1rem; text-decoration: none; border-radius: 4px; margin-top: 1rem; }
 .btn:hover { background: #2980b9; }
+.social-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1rem; }
+.social-links a { color: white; text-decoration: none; padding: 0.5rem 1rem; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; transition: background 0.3s; }
+.social-links a:hover { background: rgba(255,255,255,0.1); }
 footer { background: #2c3e50; color: white; text-align: center; padding: 2rem 0; margin-top: 3rem; }
 @media (max-width: 768px) { .hero { flex-direction: column; text-align: center; } .hero h1 { font-size: 2rem; } .skills-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); } }
 `
@@ -163,6 +179,7 @@ const indexTemplate = `<!DOCTYPE html>
                 <div class="hero-text">
                     <h1>Hemanth Kumar Kola</h1>
                     <p>Go Engineer & Backend Developer</p>
+                    <p style="font-size: 1rem; margin-top: 0.5rem;">Bengaluru | +91 7337283959 | hemanthkumarkola1@gmail.com</p>
                 </div>
             </div>
         </div>
@@ -199,6 +216,11 @@ const indexTemplate = `<!DOCTYPE html>
 
     <footer>
         <div class="container">
+            <div class="social-links">
+                {{range .SocialLinks}}
+                <a href="{{.URL}}" target="_blank">{{.Name}}</a>
+                {{end}}
+            </div>
             <p>&copy; 2024 Hemanth Kumar Kola. Built with Go.</p>
         </div>
     </footer>
