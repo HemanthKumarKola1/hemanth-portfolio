@@ -142,6 +142,11 @@ func copyAssets() {
 		os.WriteFile("docs/images/otel-spot-award.jpeg", data, 0644)
 	}
 
+	// Copy GitLab history image
+	if data, err := os.ReadFile("gitlab-history.png"); err == nil {
+		os.WriteFile("docs/images/gitlab-history.png", data, 0644)
+	}
+
 	css := `
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; }
@@ -171,6 +176,9 @@ header { background: #2c3e50; color: white; padding: 2rem 0; }
 .awards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
 .award-card { background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center; }
 .award-img { width: 100%; max-width: 400px; height: auto; border-radius: 4px; }
+.contributions { padding: 3rem 0; }
+.contribution-card { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center; max-width: 800px; margin: 2rem auto; }
+.gitlab-history { width: 100%; max-width: 700px; height: auto; border-radius: 8px; border: 1px solid #ddd; }
 footer { background: #2c3e50; color: white; text-align: center; padding: 2rem 0; margin-top: 3rem; }
 @media (max-width: 768px) { .hero { flex-direction: column; text-align: center; } .hero h1 { font-size: 2rem; } .skills-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); } }
 `
@@ -208,6 +216,17 @@ const indexTemplate = `<!DOCTYPE html>
                     <strong>{{.}}</strong>
                 </div>
                 {{end}}
+            </div>
+        </div>
+    </section>
+
+    <section class="contributions">
+        <div class="container">
+            <h2>Professional Contributions</h2>
+            <div class="contribution-card">
+                <h3>GitLab Activity Overview</h3>
+                <p style="margin: 1rem 0; color: #666;">This contribution history reflects my ongoing professional work. Periods of higher activity correspond to feature development and implementation (peaking at ~225 contributions per week), while lower-commit periods align with design discussions, code reviews, and planning for upcoming features.</p>
+                <img src="images/gitlab-history.png" alt="GitLab Contribution History" class="gitlab-history">
             </div>
         </div>
     </section>
